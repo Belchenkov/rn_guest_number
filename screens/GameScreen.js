@@ -1,8 +1,8 @@
+import { Text } from 'react-native';
+
 const GameScreen = () => {
     return (
-        <div>
-
-        </div>
+        <Text>Game Screen!</Text>
     );
 };
 
