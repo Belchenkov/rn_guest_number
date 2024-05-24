@@ -1,8 +1,10 @@
+import { Text } from 'react-native';
+
 const GameOverScreen = () => {
     return (
-        <div>
-
-        </div>
+        <Text>
+            Game is over!
+        </Text>
     );
 };
 

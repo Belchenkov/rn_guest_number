@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     StyleSheet,
     Text,
@@ -19,9 +19,15 @@ function generateRandomBetween(min, max, exclude) {
     return rndNum === exclude ? generateRandomBetween(min, max, exclude) : rndNum;
 }
 
-const GameScreen = ({ userNumber }) => {
-    const initialGuess = generateRandomBetween(minBoundary, maxBoundary, userNumber);
+const GameScreen = ({ userNumber, onGameOver }) => {
+    const initialGuess = generateRandomBetween(1, 100, userNumber);
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
+
+    useEffect(() => {
+        if (currentGuess === userNumber) {
+            onGameOver();
+        }
+    }, []);
 
     const nextGuessHandler = direction => {
         if ((direction === 'lower' && currentGuess < userNumber) || (direction === 'greater' && currentGuess > userNumber)) {
