@@ -3,6 +3,8 @@ import {
     StyleSheet,
     View,
     Alert,
+    Text,
+    FlatList,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -24,6 +26,7 @@ function generateRandomBetween(min, max, exclude) {
 const GameScreen = ({ userNumber, onGameOver }) => {
     const initialGuess = generateRandomBetween(1, 100, userNumber);
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
+    const [guessRound, setGuessRound] = useState([initialGuess]);
 
     useEffect(() => {
         if (currentGuess === userNumber) {
@@ -53,6 +56,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
 
         const newRndNumber = generateRandomBetween(minBoundary, maxBoundary, currentGuess);
         setCurrentGuess(newRndNumber);
+        setGuessRound(prevState => [newRndNumber, ...prevState]);
     };
 
     return (
@@ -82,7 +86,11 @@ const GameScreen = ({ userNumber, onGameOver }) => {
                     </View>
                 </View>
             </Card>
-            {/*<View>LOG ROUNDS</View>*/}
+            <View>
+                {guessRound.map(guessRound => (
+                    <Text key={guessRound}>{guessRound}</Text>
+                ))}
+            </View>
         </View>
     );
 };
